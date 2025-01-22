@@ -95,9 +95,9 @@ offset_bottom = 322.998
 script = ExtResource("1_8v1e6")
 pname = "color"
 
-[node name="Gayme" type="Node3D" parent="."]
+[node name="Gay me" type="Node3D" parent="."]
 
-[node name="WorlCreator" type="Node3D" parent="Gayme"]
+[node name="WorlCreator" type="Node3D" parent="Gay me"]
 script = ExtResource("2_5fnx8")
 
-[node name="References" type="Node3D" parent="Gayme"]
+[node name="References" type="Node3D" parent="Gay me"]
