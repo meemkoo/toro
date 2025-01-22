@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bmh515h6pxvgk"]
+[gd_scene load_steps=3 format=3 uid="uid://bmh515h6pxvgk"]
 
 [ext_resource type="Script" path="res://scripts/label.gd" id="1_kraxs"]
+[ext_resource type="PackedScene" uid="uid://c8e5tn2orgq4w" path="res://scenes/maingame.tscn" id="2_72bg3"]
 
 [node name="Root" type="Node"]
 
@@ -93,3 +94,5 @@ offset_right = 182.026
 offset_bottom = 322.998
 script = ExtResource("1_kraxs")
 pname = "color"
+
+[node name="Maingame" parent="." instance=ExtResource("2_72bg3")]
