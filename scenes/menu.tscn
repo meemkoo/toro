@@ -95,4 +95,13 @@ offset_bottom = 322.998
 script = ExtResource("1_kraxs")
 pname = "color"
 
+<<<<<<< HEAD:scenes/menu.tscn
 [node name="Maingame" parent="." instance=ExtResource("2_72bg3")]
+=======
+[node name="Gay me" type="Node3D" parent="."]
+
+[node name="WorlCreator" type="Node3D" parent="Gay me"]
+script = ExtResource("2_5fnx8")
+
+[node name="References" type="Node3D" parent="Gay me"]
+>>>>>>> 742a91212523c2208ec9dc6c8db4d132ac896d79:menu.tscn
