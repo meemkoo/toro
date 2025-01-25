@@ -2,6 +2,9 @@ extends Node
 
 @onready
 var mo = $"../MapObjects"
+@onready
+var mos = $"../MapObjectsSource"
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -36,9 +39,9 @@ func _ready() -> void:
                 Color("ff6d00"):
                     t = ["Pit", "pit", 10]
             cwbb.append(t)
-            var nut = CSGBox3D.new()
+            var nut = get_node("../MapObjectsSource/{0}".format([t[1]])).duplicate()
             nut.transform.origin = Vector3(i, 0, j)
-            nut.scale = Vector3(t[2], 1, t[2])
+            # nut.scale = Vector3(1/t[2], 1, 1/t[2])
             
             #var nut: MeshInstance3D = $"../MapObjectsSource/Wall".duplicate()
             mo.add_child(nut)
