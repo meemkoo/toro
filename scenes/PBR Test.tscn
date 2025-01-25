@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://bk0rha5l0ifsm"]
+
+[ext_resource type="ArrayMesh" uid="uid://b5mv1dtjhvgwm" path="res://Models/Sandstonewalls.obj" id="1_kr4h0"]
+[ext_resource type="Texture2D" uid="uid://7e6sr0w6idhk" path="res://Textures/SandstoneTexture.png" id="2_vkdo0"]
+[ext_resource type="Texture2D" uid="uid://tqwn1tan5ekk" path="res://Textures/SandstoneNormal.png" id="3_drpuj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ye11u"]
+albedo_texture = ExtResource("2_vkdo0")
+normal_enabled = true
+normal_scale = 0.1
+normal_texture = ExtResource("3_drpuj")
+
+[node name="PbrTest" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.20461, 0, 0, 0, 0.20461, 0, 0, 0, 0.20461, 0.00297827, 0.0748609, 2.583)
+mesh = ExtResource("1_kr4h0")
+surface_material_override/0 = SubResource("StandardMaterial3D_ye11u")
