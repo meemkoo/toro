@@ -2,18 +2,18 @@
 
 [ext_resource type="Script" path="res://scripts/worl_creator.gd" id="1_djhrm"]
 [ext_resource type="Script" path="res://scripts/camera_3d.gd" id="1_yc3xv"]
-[ext_resource type="PackedScene" uid="uid://c2wl1e2y7n3wq" path="res://scenes/player.tscn" id="3_kgo72"]
+[ext_resource type="PackedScene" uid="uid://buuufkt5bownb" path="res://scenes/player.tscn" id="3_kgo72"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_geui2"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
-[sub_resource type="Sky" id="Sky_0fb6i"]
+[sub_resource type="Sky" id="Sky_b5gn7"]
 sky_material = SubResource("ProceduralSkyMaterial_geui2")
 
 [sub_resource type="Environment" id="Environment_yqp3m"]
 background_mode = 2
-sky = SubResource("Sky_0fb6i")
+sky = SubResource("Sky_b5gn7")
 tonemap_mode = 2
 
 [sub_resource type="BoxMesh" id="BoxMesh_7sk04"]
@@ -125,5 +125,4 @@ physics_interpolation_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00525, 0)
 
 [node name="FreeLookCamera" type="Camera3D" parent="."]
-current = true
 script = ExtResource("1_yc3xv")
