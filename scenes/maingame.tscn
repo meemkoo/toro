@@ -1,43 +1,37 @@
 [gd_scene load_steps=5 format=3 uid="uid://c8e5tn2orgq4w"]
 
 [ext_resource type="Script" path="res://scripts/worl_creator.gd" id="1_djhrm"]
+[ext_resource type="PackedScene" uid="uid://c2wl1e2y7n3wq" path="res://scenes/player.tscn" id="3_kgo72"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_7sk04"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_77ayx"]
 
-[sub_resource type="GDScript" id="GDScript_afu86"]
-resource_name = "tes42"
-script/source = "extends MeshInstance3D
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-    pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-    pass
-"
-
 [node name="Maingame" type="Node3D"]
+physics_interpolation_mode = 1
 
 [node name="MapObjects" type="Node3D" parent="."]
 
-[node name="MapObjectsBase" type="Node3D" parent="."]
+[node name="CSGBox3D" type="CSGBox3D" parent="MapObjects"]
+use_collision = true
+size = Vector3(80, 1, 80)
 
-[node name="Wall" type="MeshInstance3D" parent="MapObjectsBase"]
+[node name="MapObjectsSource" type="Node3D" parent="."]
+visible = false
+
+[node name="Wall" type="Node3D" parent="MapObjectsSource"]
+
+[node name="Mesh" type="MeshInstance3D" parent="MapObjectsSource/Wall"]
 mesh = SubResource("BoxMesh_7sk04")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_77ayx")
-script = SubResource("GDScript_afu86")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.806324, 0.172058, -0.565896, -0.0426427, 0.937354, 0.345758, 0.589935, 0.302924, -0.748474, -3.19764, 3.46017, -4.14801)
-fov = 92.6843
 
 [node name="Genny" type="Node" parent="."]
 script = ExtResource("1_djhrm")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.56131, 2.62641, 11.7618)
+transform = Transform3D(1, 0, 0, 0, -0.0381436, 0.999272, 0, -0.999272, -0.0381436, 0.213046, 2.62641, 2.14511)
+
+[node name="Player" parent="." instance=ExtResource("3_kgo72")]
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00525, 0)

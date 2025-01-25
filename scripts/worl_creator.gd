@@ -13,30 +13,36 @@ func _ready() -> void:
         for j in range(img.get_height()):
             var t = null
             match img.get_pixel(j, i):
-                Color("000000"): t = "Wall"
-                Color("ffffff"): t = "Air titkok"
-                Color("00ff12"): t = "Level end"
-                Color("0400ff"): t = "Level start"
-                Color("15293a"): t = "Staircase"
-                Color("848484"): t = "Breakable wall/locked door"
-                Color("ff0000"): t = "Stage 1 enemy"
-                Color("ffe800"): t = "Stage 2 enemy"
-                Color("46c9f7"): t = "Stage 3 enemy"
-                Color("9800ff"): t = "Sniper"
-                Color("ff6d00"): t = "Pit"
+                Color("000000"):
+                    t = ["Wall", "wall", 11]
+                Color("ffffff"):
+                    t = ["Air", "air", 1]
+                Color("00ff12"):
+                    t = ["Level end", "lend", 2]
+                Color("0400ff"):
+                    t = ["Level start", "lstart", 3]
+                Color("15293a"):
+                    t = ["Staircase", "stairs", 4]
+                Color("848484"):
+                    t = ["Breakable wall/locked door", "xwall", 5]
+                Color("ff0000"):
+                    t = ["Stage 1 enemy", "e1", 6]
+                Color("ffe800"):
+                    t = ["Stage 2 enemy", "e2", 7]
+                Color("46c9f7"):
+                    t = ["Stage 3 enemy", "e3", 8]
+                Color("9800ff"):
+                    t = ["Sniper", "sniper", 9]
+                Color("ff6d00"):
+                    t = ["Pit", "pit", 10]
             cwbb.append(t)
-            var nut: MeshInstance3D = $"../MapObjectsBase/Wall".duplicate()
-            
-            var material = StandardMaterial3D.new()
-            material.albedo_color = img.get_pixel(j, i)
-            nut.set_surface_override_material(0, material)
-            # nut.material_override = material
-            
+            var nut = CSGBox3D.new()
             nut.transform.origin = Vector3(i, 0, j)
+            nut.scale = Vector3(t[2], 1, t[2])
             
+            #var nut: MeshInstance3D = $"../MapObjectsSource/Wall".duplicate()
             mo.add_child(nut)
         array.append(cwbb)
-    pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
