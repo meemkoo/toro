@@ -20,9 +20,12 @@ var gravity = 9.8
 const BASE_FOV = 80.0
 const FOV_CHANGE = 1.5
 
+var enemy_1 = load("res://scenes/entities/enemy_1.gd")
+
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 @onready var hitbox = $Area3D
+@onready var blood = "res://Prefabs/blood.tscn"
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -46,7 +49,9 @@ func _unhandled_input(event):
 				#pass
 				if body.is_in_group("Enemy"):
 					#pass
-					body.queue_free()
+					#blood.emitting = true
+					#body.queue_free()
+					enemy_1.call("dead")
 					WALK_SPEED = WALK_SPEED + 0.5
 				if body.is_in_group("Wall"):
 					#pass

@@ -1,3 +1,26 @@
-[gd_scene format=3 uid="uid://b2i1xauufa1n1"]
+[gd_scene load_steps=6 format=3 uid="uid://b2i1xauufa1n1"]
 
-[node name="Enemy1" type="Node3D"]
+[ext_resource type="Script" path="res://scenes/entities/enemy_1.gd" id="1_0ch8b"]
+[ext_resource type="PackedScene" uid="uid://gel44tyx3eqy" path="res://Prefabs/blood.tscn" id="2_3gf03"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ksxv2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eodpo"]
+albedo_color = Color(1, 0.352941, 0.384314, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8c217"]
+material = SubResource("StandardMaterial3D_eodpo")
+
+[node name="Enemy1" type="Node3D" groups=["Enemy"]]
+script = ExtResource("1_0ch8b")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." groups=["Enemy"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" groups=["Enemy"]]
+shape = SubResource("CapsuleShape3D_ksxv2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D" groups=["Enemy"]]
+mesh = SubResource("CapsuleMesh_8c217")
+skeleton = NodePath("../..")
+
+[node name="blood" parent="." instance=ExtResource("2_3gf03")]
