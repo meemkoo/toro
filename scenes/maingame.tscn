@@ -16,11 +16,11 @@ background_mode = 2
 sky = SubResource("Sky_0fb6i")
 tonemap_mode = 2
 
-[sub_resource type="BoxMesh" id="BoxMesh_7sk04"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_apwvw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_77ayx"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_apwvw"]
+[sub_resource type="BoxMesh" id="BoxMesh_7sk04"]
 
 [node name="Maingame" type="Node3D"]
 physics_interpolation_mode = 1
@@ -40,9 +40,7 @@ size = Vector3(80, 1, 80)
 [node name="wall" type="Node3D" parent="MapObjectsSource"]
 
 [node name="Mesh" type="MeshInstance3D" parent="MapObjectsSource/wall"]
-mesh = SubResource("BoxMesh_7sk04")
 skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_77ayx")
 
 [node name="air" type="Node3D" parent="MapObjectsSource"]
 
