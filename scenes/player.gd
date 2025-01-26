@@ -47,7 +47,7 @@ func _unhandled_input(event):
 				if body.is_in_group("Enemy"):
 					#pass
 					body.queue_free()
-					WALK_SPEED = WALK_SPEED * 1.1
+					WALK_SPEED = WALK_SPEED + 0.5
 				if body.is_in_group("Wall"):
 					#pass
 					WALK_SPEED = 5

@@ -15,6 +15,7 @@ sky = SubResource("Sky_0fb6i")
 tonemap_mode = 2
 
 [node name="EnemyTest" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.193758, 2.61031, -0.786813)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.09488, 0)
