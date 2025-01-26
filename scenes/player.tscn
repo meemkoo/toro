@@ -7,7 +7,7 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ahe0t"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nird5"]
-size = Vector3(1.24512, 1.42493, 1.16357)
+size = Vector3(1.47893, 1.42493, 1.43677)
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
 script = ExtResource("1_5oke4")
@@ -22,8 +22,8 @@ mesh = SubResource("CapsuleMesh_ahe0t")
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 
-[node name="Area3D" type="Area3D" parent="Head/Camera3D"]
+[node name="Area3D" type="Area3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Head/Camera3D/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0307617, 0.212463, -0.318115)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0568926, 0.212463, -0.181517)
 shape = SubResource("BoxShape3D_nird5")

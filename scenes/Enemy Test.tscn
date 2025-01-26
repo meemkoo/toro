@@ -29,26 +29,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.86912, -1.29968, -7.6019)
 use_collision = true
 size = Vector3(1, 2.28613, 1)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="CSGBox3D3" groups=["Enemy"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.4694, -0.14739, -5.48522)
-use_collision = true
-size = Vector3(1, 2.28613, 1)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGBox3D3" groups=["Enemy"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.55658, -0.0780292, 3.1203)
-use_collision = true
-size = Vector3(1, 2.28613, 1)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="CSGBox3D3" groups=["Enemy"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.3215, -0.14739, 9.74044)
-use_collision = true
-size = Vector3(1, 2.28613, 1)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="CSGBox3D3" groups=["Enemy"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.4087, -0.0780292, 18.346)
-use_collision = true
-size = Vector3(1, 2.28613, 1)
-
 [node name="CSGBox3D2" type="CSGBox3D" parent="." groups=["Enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.7819, -1.23032, 1.00362)
 use_collision = true
@@ -56,6 +36,11 @@ size = Vector3(1, 2.28613, 1)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qttgw")
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="." groups=["Enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.966, -1.19019, 7.9163)
+use_collision = true
+size = Vector3(1, 2.28613, 1)
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="." groups=["Enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.983, -1.29968, 7.62377)
@@ -89,5 +74,25 @@ size = Vector3(1, 2.28613, 1)
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="." groups=["Enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.1351, -1.45574, -4.35869)
+use_collision = true
+size = Vector3(1, 2.28613, 1)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="." groups=["Enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.60028, -1.44707, -13.0871)
+use_collision = true
+size = Vector3(1, 2.28613, 1)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="." groups=["Enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68746, -1.37771, -4.4816)
+use_collision = true
+size = Vector3(1, 2.28613, 1)
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="." groups=["Enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.4524, -1.44707, 2.13854)
+use_collision = true
+size = Vector3(1, 2.28613, 1)
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="." groups=["Enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5396, -1.37771, 10.7441)
 use_collision = true
 size = Vector3(1, 2.28613, 1)

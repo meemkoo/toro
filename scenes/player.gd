@@ -22,7 +22,7 @@ const FOV_CHANGE = 1.5
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
-@onready var hitbox = $Head/Camera3D/Area3D
+@onready var hitbox = $Area3D
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -43,13 +43,13 @@ func _unhandled_input(event):
 	
 	for body in hitbox.get_overlapping_bodies():
 				#print (body)
-				pass
+				#pass
 				if body.is_in_group("Enemy"):
-					pass
+					#pass
 					body.queue_free()
 					WALK_SPEED = WALK_SPEED * 1.1
 				if body.is_in_group("Wall"):
-					pass
+					#pass
 					WALK_SPEED = 5
 
 func _physics_process(delta):
@@ -77,6 +77,14 @@ func _physics_process(delta):
 	#print(camera.fov)
 	
 	print(WALK_SPEED)
+	
+	#Speedlines
+	if WALK_SPEED >= 7:
+		#apply speedlines
+		pass
+	else:
+		#remove speedlines
+		pass
 
 
 func _headbob(time) -> Vector3:
