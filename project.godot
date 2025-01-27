@@ -23,7 +23,11 @@ version_control/autoload_on_startup=true
 [file_customization]
 
 folder_colors={
-"res://maps/": "green"
+"res://Models/": "orange",
+"res://addons/": "gray",
+"res://maps/": "green",
+"res://otheres/": "pink",
+"res://scenes/": "blue"
 }
 
 [input]

@@ -7,6 +7,8 @@ var mos = $"../MapObjectsSource"
 @onready
 var player_main = $"../Player"
 
+var levels = []
+
 const MAPSCALEFACTOR = 4
 const MSF = MAPSCALEFACTOR
 
@@ -78,39 +80,45 @@ func load_map(img: Image, sources: Node3D, player: Node3D) -> Node3D:
             var t = null
             match img.get_pixel(i, j):
                 Color("000000"):
-                    t = ["Wall", "wall", 11]
+                    t = ["Wall", "wall", 11, true] # Name, computer name, id, walltype
                 Color("ffffff"):
-                    t = ["Air", "air", 1]
+                    t = ["Air", "air", 1, false]
                 Color("00ff12"):
-                    t = ["Level end", "lend", 2]
+                    t = ["Level end", "lend", 2, false]
                 Color("0400ff"):
-                    t = ["Level start", "lstart", 3]
+                    t = ["Level start", "lstart", 3, false]
                 Color("15293a"):
-                    t = ["Staircase", "stairs", 4]
+                    t = ["Staircase", "stairs", 4, false]
                 Color("848484"):
-                    t = ["Breakable wall", "xwall", 5]
+                    t = ["Breakable wall", "xwall", 5, true]
                 Color("ff0000"):
-                    t = ["Stage 1 enemy", "e1", 6]
+                    t = ["Stage 1 enemy", "e1", 6, false]
                 Color("ffe800"):
-                    t = ["Stage 2 enemy", "e2", 7]
+                    t = ["Stage 2 enemy", "e2", 7, false]
                 Color("46c9f7"):
-                    t = ["Stage 3 enemy", "e3", 8]
+                    t = ["Stage 3 enemy", "e3", 8, false]
                 Color("9800ff"):
-                    t = ["Sniper", "sniper", 9]
+                    t = ["Sniper", "sniper", 9, false]
                 Color("ff6d00"):
-                    t = ["Pit", "pit", 10]
+                    t = ["Pit", "pit", 10, false]
                 Color("3f3f3f"):
-                    t = ["Locked Door", "ldoor", 12]
+                    t = ["Locked Door", "ldoor", 12, false]
             cwbb.append(t)
         arrayonce.append(cwbb)
 
     var wallmat = StandardMaterial3D.new()
     wallmat.vertex_color_use_as_albedo = true # will need this for the array of colors
-    
+    var walls = Node3D.new()
+    var wall_mesh = MeshInstance3D.new()
+    walls.add_child(wall_mesh)
     
     for x in range(img.get_width()):
         for y in range(img.get_height()):
             var cell = arrayonce[x][y]
+            
+            if cell[3]:
+                continue
+                
             var nut = get_node("{0}/{1}".format([sources.get_path(), cell[1]])).duplicate()
             nut.transform.origin = Vector3(MSF*x, 0, MSF*y)
             levelroot.add_child(nut)
@@ -156,8 +164,10 @@ func load_map(img: Image, sources: Node3D, player: Node3D) -> Node3D:
                 arr_mesh.surface_set_material(0, wallmat)
                 nut.get_child(0).mesh = arr_mesh
     
+    levelroot.add_child(walls)
     
     return levelroot
+
 
 func get_all_file_paths(path: String) -> Array[String]:  
     var file_paths: Array[String] = []  
@@ -168,17 +178,15 @@ func get_all_file_paths(path: String) -> Array[String]:
         var file_path = path + "/" + file_name  
         if dir.current_is_dir():  
             file_paths += get_all_file_paths(file_path)  
-        else:  
+        else:
             file_paths.append(file_path)  
         file_name = dir.get_next()  
     return file_paths
 
 func _ready() -> void:
-    var levels_raw = []
-    var eee = get_all_file_paths("res://maps")
-    for i in eee:
+    for i in get_all_file_paths("res://maps"):
         if i.split('.')[-1] == 'png':
-            levels_raw.append(i)
-    var img = load("res://maps/test1.png")
-    img = img.get_image()
-    mo.add_child(load_map(img, mos, player_main))
+            levels.append(load_map(load(i).get_image(), mos, player_main))
+
+    mo.add_child(levels[0])
+    pass
