@@ -107,6 +107,7 @@ func load_map(img: Image, sources: Node3D, player: Node3D) -> Node3D:
     var wallmat = StandardMaterial3D.new()
     wallmat.vertex_color_use_as_albedo = true # will need this for the array of colors
     
+    
     for x in range(img.get_width()):
         for y in range(img.get_height()):
             var cell = arrayonce[x][y]
@@ -158,12 +159,26 @@ func load_map(img: Image, sources: Node3D, player: Node3D) -> Node3D:
     
     return levelroot
 
-# Called when the node enters the scene tree for the first time.
+func get_all_file_paths(path: String) -> Array[String]:  
+    var file_paths: Array[String] = []  
+    var dir = DirAccess.open(path)  
+    dir.list_dir_begin()  
+    var file_name = dir.get_next()  
+    while file_name != "":  
+        var file_path = path + "/" + file_name  
+        if dir.current_is_dir():  
+            file_paths += get_all_file_paths(file_path)  
+        else:  
+            file_paths.append(file_path)  
+        file_name = dir.get_next()  
+    return file_paths
+
 func _ready() -> void:
+    var levels_raw = []
+    var eee = get_all_file_paths("res://maps")
+    for i in eee:
+        if i.split('.')[-1] == 'png':
+            levels_raw.append(i)
     var img = load("res://maps/test1.png")
     img = img.get_image()
     mo.add_child(load_map(img, mos, player_main))
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-    pass

@@ -26,9 +26,6 @@ var jump_vel: Vector3 # Jumping velocity
 
 func _ready() -> void:
     capture_mouse()
-    
-func _process(delta: float) -> void:
-    pass
 
 var mouse_sens = 0.3
 var camera_anglev=0
