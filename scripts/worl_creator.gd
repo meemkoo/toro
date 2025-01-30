@@ -119,6 +119,12 @@ func load_map(img: Image, sources: Node3D, player: Node3D) -> Node3D:
             nut.transform.origin = Vector3(MSF*x, 0, MSF*y)
             levelroot.add_child(nut)
             
+            if cell[2] != 10:
+                var boxbox = CSGBox3D.new()
+                boxbox.transform.origin = Vector3(MSF*x, -2, MSF*y)
+                boxbox.transform = boxbox.transform.scaled_local(Vector3(4,4,4))
+                boxbox.use_collision = true
+                levelroot.add_child(boxbox)
             if cell[2] >= 6 and cell[2] <= 8:
                 pass
             if cell[2] == 3:
@@ -208,3 +214,8 @@ func _ready() -> void:
 
     mo.add_child(load_map(load(levels[0][0][0]).get_image(), mos, player_main))
     pass
+
+
+func _on_maingame_nextlevel() -> void:
+    for i in mo.get_children():
+        mo.remove_child(i)
