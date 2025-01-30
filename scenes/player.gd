@@ -68,6 +68,13 @@ func _physics_process(delta):
 	var walk_dir: Vector3 = Vector3(_forward.x, 0, _forward.z).normalized()
 	walk_vel = walk_vel.move_toward(walk_dir * WALK_SPEED * move_dir.length() * runmaxxing, 100 * delta)
 	velocity = walk_vel + grav_vel
+  
+  var collision = move_and_collide(velocity/4 * delta)
+    if collision:
+        velocity = velocity.slide(collision.get_normal())
+
+    move_and_slide()
+  
 	move_and_slide()
 
 # head bob
@@ -97,5 +104,3 @@ func _headbob(time) -> Vector3:
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP
 	pos.x = cos(time *BOB_FREQ / 2) *BOB_AMP
 	return pos
-
-	

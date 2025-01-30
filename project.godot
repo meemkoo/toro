@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Toro"
 run/main_scene="res://scenes/maingame.tscn"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [editor]
@@ -21,17 +21,30 @@ movie_writer/movie_file="D:/Users/seaba/Videos/Godot video/enemy death sound"
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
+
 [global_group]
 
 Enemy="Group so that player can kill enemies"
 Wall="group for anything we want to slow down the player"
 DeathEffect="tag for blood effects so that they trigger upon enemy death"
 
+[file_customization]
+
+folder_colors={
+"res://Models/": "orange",
+"res://Textures/": "purple",
+"res://addons/": "gray",
+"res://maps/": "yellow",
+"res://otheres/": "pink",
+"res://scenes/": "blue",
+"res://scripts/": "green"
+}
+
 [input]
 
 w_pres={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":87,"key_label":0,"unicode":119,"location":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":87,"key_label":0,"unicode":119,"echo":false,"script":null)
 ]
 }
 

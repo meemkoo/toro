@@ -6,6 +6,8 @@ const ALT_MULTIPLIER = 1.0 / SHIFT_MULTIPLIER
 
 
 @export_range(0.0, 1.0) var sensitivity: float = 0.25
+@export
+var disabled: bool
 
 # Mouse state
 var _mouse_position = Vector2(0.0, 0.0)
@@ -114,3 +116,8 @@ func _update_mouselook():
     
         rotate_y(deg_to_rad(-yaw))
         rotate_object_local(Vector3(1,0,0), deg_to_rad(-pitch))
+
+func _ready() -> void:
+    if disabled:
+        self.current = false
+    
