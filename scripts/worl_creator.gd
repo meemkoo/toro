@@ -9,6 +9,9 @@ var player_main = $"../Player"
 
 var levels = {}
 
+var lidx = 0;
+var fidx = 0;
+
 const MAPSCALEFACTOR = 4
 const MSF = MAPSCALEFACTOR
 
@@ -212,10 +215,17 @@ func _ready() -> void:
     Counterstrike my `friend` said yay up down looking, 
     this game =/= doom. So i rebute with PS (like piss) is an old head and fuck this"
 
-    mo.add_child(load_map(load(levels[0][0][0]).get_image(), mos, player_main))
+    mo.add_child(load_map(load(levels[lidx][fidx][0]).get_image(), mos, player_main))
     pass
 
 
-func _on_maingame_nextlevel() -> void:
+func _on_collision_shape_3d_woah() -> void:
     for i in mo.get_children():
         mo.remove_child(i)
+    if fidx+1 == len(levels[lidx]):
+        lidx += 1
+        fidx = 0
+        # Do next level screen
+    else:
+        fidx += 1
+    mo.add_child(load_map(load(levels[lidx][fidx][0]).get_image(), mos, player_main))
