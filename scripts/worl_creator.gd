@@ -7,7 +7,7 @@ var mos = $"../MapObjectsSource"
 @onready
 var player_main = $"../Player"
 
-var levels = []
+var levels = {}
 
 const MAPSCALEFACTOR = 4
 const MSF = MAPSCALEFACTOR
@@ -80,7 +80,7 @@ func load_map(img: Image, sources: Node3D, player: Node3D) -> Node3D:
             var t = null
             match img.get_pixel(i, j):
                 Color("000000"):
-                    t = ["Wall", "wall", 11, true] # Name, computer name, id, walltype
+                    t = ["Wall", "wall", 11, false] # Name, computer name, id, walltype
                 Color("ffffff"):
                     t = ["Air", "air", 1, false]
                 Color("00ff12"):
@@ -103,22 +103,18 @@ func load_map(img: Image, sources: Node3D, player: Node3D) -> Node3D:
                     t = ["Pit", "pit", 10, false]
                 Color("3f3f3f"):
                     t = ["Locked Door", "ldoor", 12, false]
+                _:
+                    t = ["Wall", "wall", 11, false]
             cwbb.append(t)
         arrayonce.append(cwbb)
 
     var wallmat = StandardMaterial3D.new()
     wallmat.vertex_color_use_as_albedo = true # will need this for the array of colors
-    var walls = Node3D.new()
-    var wall_mesh = MeshInstance3D.new()
-    walls.add_child(wall_mesh)
+    
     
     for x in range(img.get_width()):
         for y in range(img.get_height()):
             var cell = arrayonce[x][y]
-            
-            if cell[3]:
-                continue
-                
             var nut = get_node("{0}/{1}".format([sources.get_path(), cell[1]])).duplicate()
             nut.transform.origin = Vector3(MSF*x, 0, MSF*y)
             levelroot.add_child(nut)
@@ -127,9 +123,9 @@ func load_map(img: Image, sources: Node3D, player: Node3D) -> Node3D:
                 pass
             if cell[2] == 3:
                 player.transform.origin = nut.transform.origin + Vector3(0.5, 0.5, 0.5)*MSF
-            if cell[2] not in [11,5]:
+            if cell[2] not in [11]:
                 nut.transform.origin += Vector3(0.5, 0.5, 0.5)*MSF
-            if cell[2] in [11,5]:
+            if cell[2] in [11]:
                 var test11 = getadj(arrayonce, x, y)
                 var bvert = []
                 if test11['N']:
@@ -163,8 +159,9 @@ func load_map(img: Image, sources: Node3D, player: Node3D) -> Node3D:
                 wallmat.vertex_color_use_as_albedo = true
                 arr_mesh.surface_set_material(0, wallmat)
                 nut.get_child(0).mesh = arr_mesh
+                
+                nut.get_child(1).position += Vector3(0.5, 0.5, 0.5)*MSF
     
-    levelroot.add_child(walls)
     
     return levelroot
 
@@ -174,7 +171,7 @@ func get_all_file_paths(path: String) -> Array[String]:
     var dir = DirAccess.open(path)  
     dir.list_dir_begin()  
     var file_name = dir.get_next()  
-    while file_name != "":  
+    while file_name != "":
         var file_path = path + "/" + file_name  
         if dir.current_is_dir():  
             file_paths += get_all_file_paths(file_path)  
@@ -183,10 +180,45 @@ func get_all_file_paths(path: String) -> Array[String]:
         file_name = dir.get_next()  
     return file_paths
 
-func _ready() -> void:
-    for i in get_all_file_paths("res://maps"):
-        if i.split('.')[-1] == 'png':
-            levels.append(load_map(load(i).get_image(), mos, player_main))
+func load_layer():
+    pass
 
-    mo.add_child(levels[0])
+func _ready() -> void:
+    #var file_paths: Array[String] = []  
+    #var dir = DirAccess.open("res://maps")  
+    #dir.list_dir_begin()  
+    #var file_name = dir.get_next()  
+    #while file_name:
+        #
+        #var dir1 = DirAccess.open("res://maps")
+        #dir1.list_dir_begin()  
+        #var file_name1 = dir1.get_next()  
+        #while file_name1:
+            #print(file_name + '__' + file_name1)
+            #file_name1 = dir1.get_next()
+        #print(file_name)
+        #file_name = dir.get_next()
+    var e = get_all_file_paths("res://maps")
+    
+    for j in e:
+        var cockywant = j.split("//")[-1].split("/").slice(1)
+        if cockywant[-1].split('.')[-1] == 'import':
+            continue
+        
+        if int(cockywant[0].split('_')[-1]) in levels:
+            levels[int(cockywant[0].split('_')[-1])].append([j, cockywant])
+        else:
+            levels[int(cockywant[0].split('_')[-1])] = [[j, cockywant]]
+    
+    for ll in levels:
+        var e11 = levels[ll]
+        for jj in e11:
+            jj.append(load_map(load(jj[0]).get_image(), mos, player_main))
+    
+    "Pirate software is a fucking old head so he probably played doom? Counterstrike my `friend` said yay up down looking, this game =/= doom. So i rebute with PS (like piss) is an old head and fuck this"
+    #for i in get_all_file_paths("res://maps"):
+        #if i.split('.')[-1] == 'png':
+            #levels.append(load_map(load(i).get_image(), mos, player_main))
+
+    mo.add_child(load_map(load(levels[0][0][0]).get_image(), mos, player_main))
     pass
