@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://c2wl1e2y7n3wq"]
+[gd_scene load_steps=6 format=3 uid="uid://buuufkt5bownb"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_5oke4"]
+[ext_resource type="AudioStream" uid="uid://b5j2j2stdmcr6" path="res://Audio/enemy death.wav" id="2_tsh76"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1cvp1"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ahe0t"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nird5"]
+size = Vector3(1.47893, 1.42493, 1.43677)
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
 script = ExtResource("1_5oke4")
@@ -15,4 +19,18 @@ shape = SubResource("CapsuleShape3D_1cvp1")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_ahe0t")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Head" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+
+[node name="AudioListener3D" type="AudioListener3D" parent="Head/Camera3D"]
+current = true
+
+[node name="enemy death sound" type="AudioStreamPlayer3D" parent="Head"]
+stream = ExtResource("2_tsh76")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0568926, 0.212463, -0.181517)
+shape = SubResource("BoxShape3D_nird5")
