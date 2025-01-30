@@ -149,7 +149,7 @@ func load_map(img: Image, sources: Node3D, player: Node3D) -> Node3D:
                         colors.append(Color.GREEN_YELLOW)
                     else:
                         colors.append(Color.GREEN_YELLOW)
-    
+                #TEST
                 var arrays := []
                 arrays.resize(Mesh.ARRAY_MAX)
                 arrays[Mesh.ARRAY_VERTEX] = PackedVector3Array(bvert)

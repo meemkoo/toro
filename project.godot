@@ -24,7 +24,9 @@ version_control/autoload_on_startup=true
 [file_customization]
 
 folder_colors={
+"res://Audio/": "orange",
 "res://Models/": "orange",
+"res://Prefabs/": "teal",
 "res://Textures/": "purple",
 "res://addons/": "gray",
 "res://maps/": "yellow",
