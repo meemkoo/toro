@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [editor]
 
+movie_writer/movie_file="D:/Users/seaba/Videos/Godot video/enemy death sound"
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
@@ -24,6 +25,7 @@ version_control/autoload_on_startup=true
 
 Enemy="Group so that player can kill enemies"
 Wall="group for anything we want to slow down the player"
+DeathEffect="tag for blood effects so that they trigger upon enemy death"
 
 [input]
 

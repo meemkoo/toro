@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bb73o5lipkie3"]
+[gd_scene load_steps=6 format=3 uid="uid://bb73o5lipkie3"]
 
 [ext_resource type="PackedScene" uid="uid://buuufkt5bownb" path="res://scenes/player.tscn" id="1_a4e8t"]
-[ext_resource type="PackedScene" uid="uid://gel44tyx3eqy" path="res://Prefabs/blood.tscn" id="2_8fjai"]
 [ext_resource type="PackedScene" uid="uid://b2i1xauufa1n1" path="res://scenes/entities/enemy1.tscn" id="3_2xw8l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vxaj6"]
@@ -37,16 +36,11 @@ size = Vector3(1, 4.67297, 5.09619)
 
 [node name="Node3D" type="Node3D" parent="."]
 
-[node name="blood" parent="." instance=ExtResource("2_8fjai")]
-
 [node name="Enemy1" parent="." instance=ExtResource("3_2xw8l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3582, -1.52164, 9.29644)
+transform = Transform3D(-0.825025, 0, 0.565097, 0, 1, 0, -0.565097, 0, -0.825025, 13.6526, -1.66663, 8.78199)
 
 [node name="Enemy2" parent="." instance=ExtResource("3_2xw8l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.720045, -1.52164, 12.1201)
+transform = Transform3D(-0.823919, 0, -0.566708, 0, 1, 0, 0.566708, 0, -0.823919, 12.3413, -1.66663, -2.59076)
 
 [node name="Enemy3" parent="." instance=ExtResource("3_2xw8l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5135, -1.52164, 11.6725)
-
-[node name="Enemy4" parent="." instance=ExtResource("3_2xw8l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.55614, -1.52164, 16.117)
+transform = Transform3D(-0.475455, 0, 0.87974, 0, 1, 0, -0.87974, 0, -0.475455, 13.429, -1.66663, 15.2882)
