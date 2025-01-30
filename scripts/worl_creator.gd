@@ -184,20 +184,6 @@ func load_layer():
     pass
 
 func _ready() -> void:
-    #var file_paths: Array[String] = []  
-    #var dir = DirAccess.open("res://maps")  
-    #dir.list_dir_begin()  
-    #var file_name = dir.get_next()  
-    #while file_name:
-        #
-        #var dir1 = DirAccess.open("res://maps")
-        #dir1.list_dir_begin()  
-        #var file_name1 = dir1.get_next()  
-        #while file_name1:
-            #print(file_name + '__' + file_name1)
-            #file_name1 = dir1.get_next()
-        #print(file_name)
-        #file_name = dir.get_next()
     var e = get_all_file_paths("res://maps")
     
     for j in e:
@@ -215,10 +201,10 @@ func _ready() -> void:
         for jj in e11:
             jj.append(load_map(load(jj[0]).get_image(), mos, player_main))
     
-    "Pirate software is a fucking old head so he probably played doom? Counterstrike my `friend` said yay up down looking, this game =/= doom. So i rebute with PS (like piss) is an old head and fuck this"
-    #for i in get_all_file_paths("res://maps"):
-        #if i.split('.')[-1] == 'png':
-            #levels.append(load_map(load(i).get_image(), mos, player_main))
+    "Pirate software is a 
+    fucking old head so he probably played doom? 
+    Counterstrike my `friend` said yay up down looking, 
+    this game =/= doom. So i rebute with PS (like piss) is an old head and fuck this"
 
     mo.add_child(load_map(load(levels[0][0][0]).get_image(), mos, player_main))
     pass
