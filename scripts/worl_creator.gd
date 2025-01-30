@@ -149,7 +149,7 @@ func load_map(img: Image, sources: Node3D, player: Node3D) -> Node3D:
                         colors.append(Color.GREEN_YELLOW)
                     else:
                         colors.append(Color.GREEN_YELLOW)
-                #TEST
+
                 var arrays := []
                 arrays.resize(Mesh.ARRAY_MAX)
                 arrays[Mesh.ARRAY_VERTEX] = PackedVector3Array(bvert)
@@ -200,7 +200,7 @@ func _ready() -> void:
         var e11 = levels[ll]
         for jj in e11:
             jj.append(load_map(load(jj[0]).get_image(), mos, player_main))
-    
+
     "Pirate software is a 
     fucking old head so he probably played doom? 
     Counterstrike my `friend` said yay up down looking, 
