@@ -1,14 +1,40 @@
-[gd_scene load_steps=6 format=3 uid="uid://b2i1xauufa1n1"]
+[gd_scene load_steps=14 format=3 uid="uid://b2i1xauufa1n1"]
 
 [ext_resource type="Script" path="res://scenes/entities/enemy_1.gd" id="1_0ch8b"]
 [ext_resource type="Script" path="res://scenes/entities/EnemySM.gd" id="1_8843u"]
 [ext_resource type="PackedScene" uid="uid://gel44tyx3eqy" path="res://Prefabs/blood.tscn" id="2_3gf03"]
 [ext_resource type="PackedScene" uid="uid://dclo1iio3o7u2" path="res://Models/bullfighter.glb" id="2_nxcb1"]
+[ext_resource type="Material" uid="uid://cmtwpybfmi5tj" path="res://Textures/new_particle_process_material.tres" id="4_f8ef6"]
+[ext_resource type="AudioStream" uid="uid://d254ghcabg52m" path="res://Audio/gunshot 2.wav" id="8_8n518"]
+[ext_resource type="AudioStream" uid="uid://c25ey784x22b" path="res://Audio/hit.wav" id="10_r606p"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ksxv2"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ajocc"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(0.566223, 0.223797, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_51ya3"]
+material = SubResource("StandardMaterial3D_ajocc")
+radius = 0.09
+height = 0.192
+
+[sub_resource type="Skin" id="Skin_iori4"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tl7kk"]
+radius = 11.159
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0xfw0"]
+lifetime_randomness = 1.0
+angle_min = 1.07288e-05
+angle_max = 1.07288e-05
+spread = 180.0
+initial_velocity_max = 70.63
+
 [node name="Enemy1" type="Node3D" groups=["Enemy"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92825, 0)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.92825, 0)
 script = ExtResource("1_8843u")
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="." groups=["Enemy"]]
@@ -18,9 +44,51 @@ script = ExtResource("1_0ch8b")
 shape = SubResource("CapsuleShape3D_ksxv2")
 
 [node name="bullfighter" parent="CharacterBody3D" instance=ExtResource("2_nxcb1")]
-transform = Transform3D(-1.79217e-08, 0, 0.41, 0, 0.41, 0, -0.41, 0, -1.79217e-08, 0.0326822, -0.955495, 0.119516)
+transform = Transform3D(-0.41, 0, -3.58433e-08, 0, 0.41, 0, 3.58433e-08, 0, -0.41, 0.0326822, -0.955495, 0.119516)
 
-[node name="blood" parent="CharacterBody3D" groups=["Enemy"] instance=ExtResource("2_3gf03")]
+[node name="RayCast3D" type="RayCast3D" parent="CharacterBody3D"]
+transform = Transform3D(0.985289, 0, 0.170897, 0, 1, 0, -0.170897, 0, 0.985289, -0.271164, 0.782071, -0.897491)
+target_position = Vector3(19.61, 1.81, -113.045)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="CharacterBody3D/RayCast3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+emitting = false
+amount = 43
+lifetime = 0.12
+one_shot = true
+explosiveness = 0.38
+randomness = 0.3
+process_material = ExtResource("4_f8ef6")
+draw_pass_1 = SubResource("SphereMesh_51ya3")
+draw_skin = SubResource("Skin_iori4")
+
+[node name="Sightrange" type="Area3D" parent="CharacterBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D/Sightrange"]
+shape = SubResource("SphereShape3D_tl7kk")
+
+[node name="eyes" type="Node3D" parent="CharacterBody3D"]
+
+[node name="ShootTimer" type="Timer" parent="CharacterBody3D"]
+wait_time = 0.7
+
+[node name="blood" parent="." instance=ExtResource("2_3gf03")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.728594, -0.0336857)
+lifetime = 0.34
+process_material = SubResource("ParticleProcessMaterial_0xfw0")
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("8_8n518")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_r606p")
+
+[node name="alert" type="AudioStreamPlayer3D" parent="."]
+
+[node name="alert2" type="AudioStreamPlayer3D" parent="."]
+
+[node name="alert3" type="AudioStreamPlayer3D" parent="."]
+
+[connection signal="body_entered" from="CharacterBody3D/Sightrange" to="." method="_on_sightrange_body_entered"]
+[connection signal="body_exited" from="CharacterBody3D/Sightrange" to="." method="_on_sightrange_body_exited"]
+[connection signal="timeout" from="CharacterBody3D/ShootTimer" to="." method="_on_shoot_timer_timeout"]

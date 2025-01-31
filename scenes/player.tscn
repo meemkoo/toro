@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://buuufkt5bownb"]
 
-[ext_resource type="Script" path="res://scenes/player.gd" id="1_5oke4"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_5oke4"]
 [ext_resource type="AudioStream" uid="uid://b5j2j2stdmcr6" path="res://Audio/enemy death.wav" id="2_tsh76"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1cvp1"]
@@ -10,10 +10,10 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_nird5"]
 size = Vector3(1.47893, 1.42493, 1.43677)
 
-[node name="CharacterBody3D" type="CharacterBody3D"]
+[node name="CharacterBody3D" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_5oke4")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["Player"]]
 shape = SubResource("CapsuleShape3D_1cvp1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

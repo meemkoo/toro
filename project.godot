@@ -15,10 +15,14 @@ run/main_scene="res://scenes/menu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
-[display]
 
+[autoload]
+Global="*res://scripts/Global.gd"
+
+[display]
 window/size/viewport_width=1280
 window/size/viewport_height=720
+
 
 [editor]
 
@@ -45,6 +49,7 @@ folder_colors={
 Enemy="Group so that player can kill enemies"
 Wall="group for anything we want to slow down the player"
 DeathEffect="tag for blood effects so that they trigger upon enemy death"
+Player=""
 
 [input]
 

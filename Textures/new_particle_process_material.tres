@@ -1,0 +1,8 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://cmtwpybfmi5tj"]
+
+[resource]
+lifetime_randomness = 0.4
+angle_min = 1.07288e-05
+angle_max = 1.07288e-05
+spread = 9.33
+initial_velocity_max = 70.63

@@ -1,9 +1,14 @@
 [gd_scene load_steps=18 format=3 uid="uid://c8e5tn2orgq4w"]
 
 [ext_resource type="Script" path="res://scripts/worl_creator.gd" id="1_djhrm"]
+
+[ext_resource type="Material" uid="uid://ch42ljgpu7k58" path="res://Textures/wallmat.tres" id="1_fceot"]
+
 [ext_resource type="PackedScene" uid="uid://b2i1xauufa1n1" path="res://scenes/entities/enemy1.tscn" id="1_rtmjw"]
+
 [ext_resource type="Script" path="res://scripts/camera_3d.gd" id="1_yc3xv"]
 [ext_resource type="PackedScene" uid="uid://buuufkt5bownb" path="res://scenes/player.tscn" id="3_kgo72"]
+[ext_resource type="PackedScene" uid="uid://b287oc7ovkcd8" path="res://scenes/entities/Timer.tscn" id="5_dn3dy"]
 
 [sub_resource type="GDScript" id="GDScript_r3i3d"]
 resource_name = "maingroot"
@@ -84,13 +89,15 @@ environment = SubResource("Environment_yqp3m")
 
 [node name="MapObjectsSource" type="Node3D" parent="."]
 
-[node name="wall" type="Node3D" parent="MapObjectsSource"]
+[node name="wall" type="Node3D" parent="MapObjectsSource" groups=["Wall"]]
 
-[node name="Mesh" type="MeshInstance3D" parent="MapObjectsSource/wall"]
+[node name="Mesh" type="MeshInstance3D" parent="MapObjectsSource/wall" groups=["Wall"]]
+material_override = ExtResource("1_fceot")
 skeleton = NodePath("../..")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="MapObjectsSource/wall" groups=["Wall"]]
 visible = false
+material_override = ExtResource("1_fceot")
 use_collision = true
 size = Vector3(4, 4, 4)
 
@@ -186,14 +193,19 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00525, 0)
 
 [node name="FreeLookCamera" type="Camera3D" parent="."]
+visible = false
 script = ExtResource("1_yc3xv")
 disabled = true
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(3.24406, 0, 0, 0, 602.687, 0, 0, 0, 3.24406, -11.1974, 300.796, -10.9121)
+visible = false
 mesh = SubResource("BoxMesh_7sk04")
 skeleton = NodePath("../MapObjectsSource/lend")
 surface_material_override/0 = SubResource("StandardMaterial3D_77ayx")
+
+
+[node name="Timer" parent="." instance=ExtResource("5_dn3dy")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -209,3 +221,4 @@ text = "gregre"
 
 [connection signal="body_entered" from="MapObjectsSource/lend/Area3D" to="MapObjectsSource/lend/Area3D/CollisionShape3D" method="_on_area_3d_body_entered"]
 [connection signal="woah" from="MapObjectsSource/lend/Area3D/CollisionShape3D" to="Genny" method="_on_collision_shape_3d_woah"]
+

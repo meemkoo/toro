@@ -30,52 +30,52 @@ var g := MSF*Vector3(1, 0, 1)
 var h := MSF*Vector3(0, 0, 1)
 
 var vertices := [   # faces (triangles)
-    b,a,d,  b,d,c,  # N
-    e,f,g,  e,g,h,  # S
-    a,e,h,  a,h,d,  # W
-    f,b,c,  f,c,g,  # E
-    a,b,f,  a,f,e,  # T
-    h,g,c,  h,c,d,  # B
+	b,a,d,  b,d,c,  # N
+	e,f,g,  e,g,h,  # S
+	a,e,h,  a,h,d,  # W
+	f,b,c,  f,c,g,  # E
+	a,b,f,  a,f,e,  # T
+	h,g,c,  h,c,d,  # B
 ]
 
 
 
 func isValidPos(i, j, n, m):
  
-    if (i < 0 or j < 0 or i > n - 1 or j > m - 1):
-        return 0
-    return 1
+	if (i < 0 or j < 0 or i > n - 1 or j > m - 1):
+		return 0
+	return 1
  
  
 # Function that returns all adjacent elements
 func getadj(arr, x, y):
-    var n = len(arr)
-    var m = len(arr[0])
-    var v = {
-        "N": null,
-        "E": null,
-        "S": null,
-        "W": null,
-        "T": null,
-        "B": null,
-    }
-    #if (isValidPos(i - 1, j - 1, n, m)):
-        #v.append(arr[i - 1][j - 1])
-    if (isValidPos(x - 1, y, n, m)):
-        v["W"] = arr[x - 1][y]
-    #if (isValidPos(i - 1, j + 1, n, m)):
-        #v.append(arr[i - 1][j + 1])
-    if (isValidPos(x, y - 1, n, m)):
-        v["N"] = arr[x][y - 1]
-    if (isValidPos(x, y + 1, n, m)):
-        v["S"] = arr[x][y + 1]
-    #if (isValidPos(i + 1, j - 1, n, m)):
-        #v.append(arr[i + 1][j - 1])
-    if (isValidPos(x + 1, y, n, m)):
-        v["E"] = arr[x + 1][y]
-    #if (isValidPos(i + 1, j + 1, n, m)):
-        #v.append(arr[i + 1][j + 1])
-    return v
+	var n = len(arr)
+	var m = len(arr[0])
+	var v = {
+		"N": null,
+		"E": null,
+		"S": null,
+		"W": null,
+		"T": null,
+		"B": null,
+	}
+	#if (isValidPos(i - 1, j - 1, n, m)):
+		#v.append(arr[i - 1][j - 1])
+	if (isValidPos(x - 1, y, n, m)):
+		v["W"] = arr[x - 1][y]
+	#if (isValidPos(i - 1, j + 1, n, m)):
+		#v.append(arr[i - 1][j + 1])
+	if (isValidPos(x, y - 1, n, m)):
+		v["N"] = arr[x][y - 1]
+	if (isValidPos(x, y + 1, n, m)):
+		v["S"] = arr[x][y + 1]
+	#if (isValidPos(i + 1, j - 1, n, m)):
+		#v.append(arr[i + 1][j - 1])
+	if (isValidPos(x + 1, y, n, m)):
+		v["E"] = arr[x + 1][y]
+	#if (isValidPos(i + 1, j + 1, n, m)):
+		#v.append(arr[i + 1][j + 1])
+	return v
 
 
 func load_map(img: Image, sources: Node3D, player: Node3D) -> Node3D:
@@ -184,22 +184,23 @@ func load_map(img: Image, sources: Node3D, player: Node3D) -> Node3D:
     return levelroot
 
 
+
 func get_all_file_paths(path: String) -> Array[String]:  
-    var file_paths: Array[String] = []  
-    var dir = DirAccess.open(path)  
-    dir.list_dir_begin()  
-    var file_name = dir.get_next()  
-    while file_name != "":
-        var file_path = path + "/" + file_name  
-        if dir.current_is_dir():  
-            file_paths += get_all_file_paths(file_path)  
-        else:
-            file_paths.append(file_path)  
-        file_name = dir.get_next()  
-    return file_paths
+	var file_paths: Array[String] = []  
+	var dir = DirAccess.open(path)  
+	dir.list_dir_begin()  
+	var file_name = dir.get_next()  
+	while file_name != "":
+		var file_path = path + "/" + file_name  
+		if dir.current_is_dir():  
+			file_paths += get_all_file_paths(file_path)  
+		else:
+			file_paths.append(file_path)  
+		file_name = dir.get_next()  
+	return file_paths
 
 func load_layer():
-    pass
+	pass
 
 func _ready() -> void:
     var e = get_all_file_paths("res://maps")
