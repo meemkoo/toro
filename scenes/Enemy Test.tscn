@@ -1,7 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://bb73o5lipkie3"]
+[gd_scene load_steps=13 format=3 uid="uid://bb73o5lipkie3"]
 
 [ext_resource type="PackedScene" uid="uid://buuufkt5bownb" path="res://scenes/player.tscn" id="1_a4e8t"]
+[ext_resource type="Texture2D" uid="uid://x0klhsroqa6j" path="res://Textures/Bricks.png" id="1_mlwgs"]
+[ext_resource type="Texture2D" uid="uid://cl1naacuwifsj" path="res://Textures/BricksNormal.png" id="2_ug43p"]
 [ext_resource type="PackedScene" uid="uid://b2i1xauufa1n1" path="res://scenes/entities/enemy1.tscn" id="3_2xw8l"]
+[ext_resource type="Texture2D" uid="uid://cntsosfpg6ide" path="res://Textures/SandstoneTexture2.png" id="4_h4esm"]
+[ext_resource type="PackedScene" uid="uid://b287oc7ovkcd8" path="res://scenes/entities/Timer.tscn" id="6_cli4t"]
+[ext_resource type="AudioStream" uid="uid://btjjqrm3suj1y" path="res://Audio/ADRENALINE.wav" id="7_ckstr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6qk10"]
+albedo_texture = ExtResource("1_mlwgs")
+normal_enabled = true
+normal_scale = -16.0
+normal_texture = ExtResource("2_ug43p")
+uv1_scale = Vector3(0.18, 0.18, 0.18)
+uv1_triplanar = true
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vxaj6"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -15,6 +28,11 @@ background_mode = 2
 sky = SubResource("Sky_0fb6i")
 tonemap_mode = 2
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxwdg"]
+albedo_texture = ExtResource("4_h4esm")
+uv1_scale = Vector3(0.165, 0.165, 0.165)
+uv1_triplanar = true
+
 [node name="EnemyTest" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.193758, 2.61031, -0.786813)
 
@@ -22,17 +40,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.193758, 2.61031, -0.786813)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.09488, 0)
 use_collision = true
 size = Vector3(80, 1, 80)
+material = SubResource("StandardMaterial3D_6qk10")
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("1_a4e8t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.47496, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.3515, -1.47496, -1.44628)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qttgw")
 
 [node name="Temporary wall" type="CSGBox3D" parent="." groups=["Wall"]]
-transform = Transform3D(-0.00443307, 0, 0.99999, 0, 1, 0, -0.99999, 0, -0.00443307, 0, -0.458145, -16.9013)
+transform = Transform3D(0.998992, 0, 0.0448747, 0, 1, 0, -0.0448747, 0, 0.998992, 16.8678, 0.60158, -3.25949)
+material_override = SubResource("StandardMaterial3D_mxwdg")
 use_collision = true
-size = Vector3(1, 4.67297, 5.09619)
+size = Vector3(1, 6.79242, 15.2997)
 
 [node name="Node3D" type="Node3D" parent="."]
 
@@ -44,3 +64,25 @@ transform = Transform3D(-0.823919, 0, -0.566708, 0, 1, 0, 0.566708, 0, -0.823919
 
 [node name="Enemy3" parent="." instance=ExtResource("3_2xw8l")]
 transform = Transform3D(-0.475455, 0, 0.87974, 0, 1, 0, -0.87974, 0, -0.475455, 13.429, -1.66663, 15.2882)
+
+[node name="Temporary wall2" type="CSGBox3D" parent="." groups=["Wall"]]
+transform = Transform3D(-0.0518478, 0, 0.998655, 0, 1, 0, -0.998655, 0, -0.0518478, 8.55848, 0.60158, -9.87852)
+material_override = SubResource("StandardMaterial3D_mxwdg")
+use_collision = true
+size = Vector3(1.10242, 6.79242, 16.6127)
+
+[node name="Timer" parent="." instance=ExtResource("6_cli4t")]
+
+[node name="Enemy4" parent="." instance=ExtResource("3_2xw8l")]
+transform = Transform3D(-0.225733, 0, 0.97419, 0, 1, 0, -0.97419, 0, -0.225733, 10.6683, -1.66663, 19.919)
+
+[node name="Enemy5" parent="." instance=ExtResource("3_2xw8l")]
+transform = Transform3D(0.349717, 0, 0.936856, 0, 1, 0, -0.936856, 0, 0.349717, -0.935142, -1.66663, 8.0057)
+
+[node name="Enemy6" parent="." instance=ExtResource("3_2xw8l")]
+transform = Transform3D(-0.418374, 0, 0.908275, 0, 1, 0, -0.908275, 0, -0.418374, 8.28277, -1.66663, 9.75938)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_ckstr")
+volume_db = -13.299
+autoplay = true

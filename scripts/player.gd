@@ -32,8 +32,8 @@ func _ready():
 
 func _unhandled_input(event):
 	
-	if WALK_SPEED >= 10:
-		WALK_SPEED = 10
+	if WALK_SPEED >= 15:
+		WALK_SPEED = 15
 	
 	
 	if event is InputEventMouseMotion:
@@ -41,17 +41,19 @@ func _unhandled_input(event):
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 		
-	if Input.is_action_pressed("w_pres"): runmaxxing = 1
+	if Input.is_action_pressed("w_pres"): 
+		runmaxxing = 1 
+		Global.gamestart = 1
 	
 	for body in hitbox.get_overlapping_bodies():
 		#print (body)
 		#pass
 		if body.is_in_group("Enemy"):
 			var body1: Node3D = body
-			body1.get_parent().blood.emitting = true
+			body1.get_parent().get_child(1).emitting = true
 			body.queue_free()
 			enemydeath.play()
-			WALK_SPEED = WALK_SPEED + 0.5
+			WALK_SPEED = WALK_SPEED + 1
 			print(WALK_SPEED)
 		if body.is_in_group("Wall"):
 			#pass
@@ -69,11 +71,9 @@ func _physics_process(delta):
 	walk_vel = walk_vel.move_toward(walk_dir * WALK_SPEED * move_dir.length() * runmaxxing, 100 * delta)
 	velocity = walk_vel + grav_vel
   
-  var collision = move_and_collide(velocity/4 * delta)
-    if collision:
-        velocity = velocity.slide(collision.get_normal())
-
-    move_and_slide()
+	var collision = move_and_collide(velocity/4 * delta)
+	if collision:
+		velocity = velocity.slide(collision.get_normal())
   
 	move_and_slide()
 

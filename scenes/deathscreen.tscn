@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=3 uid="uid://cq0wa7wemdkaq"]
+
+[ext_resource type="Script" path="res://scenes/deathscreen.gd" id="1_xuudj"]
+[ext_resource type="Texture2D" uid="uid://cntsosfpg6ide" path="res://Textures/SandstoneTexture2.png" id="2_hdmij"]
+[ext_resource type="Texture2D" uid="uid://cvcabx3pj5ka6" path="res://Textures/kqyh42ku.png" id="3_a28qg"]
+[ext_resource type="FontFile" uid="uid://bx7q2guqy61sm" path="res://Textures/golden-dragon-solid.ttf" id="4_eitgi"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wbjq6"]
+font = ExtResource("4_eitgi")
+font_size = 41
+font_color = Color(1, 0.317647, 0, 1)
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Deathscreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xuudj")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -2.0
+offset_top = -3.0
+offset_right = 1146.0
+offset_bottom = 1048.0
+texture = ExtResource("2_hdmij")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -373.0
+offset_top = 71.0
+offset_right = 379.0
+offset_bottom = 217.0
+grow_horizontal = 2
+texture = ExtResource("3_a28qg")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 453.0
+offset_top = 262.0
+offset_right = 667.0
+offset_bottom = 365.0
+
+[node name="Label" type="Label" parent="Button"]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 12.0
+offset_right = 182.0
+offset_bottom = 97.0
+text = "TRY 
+AGAIN"
+label_settings = SubResource("LabelSettings_wbjq6")
+horizontal_alignment = 1
+
+[node name="Button2" type="Button" parent="."]
+offset_left = 456.0
+offset_top = 409.0
+offset_right = 670.0
+offset_bottom = 512.0
+
+[node name="Label" type="Label" parent="Button2"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 28.0
+offset_right = 183.0
+offset_bottom = 73.0
+text = "QUIT"
+label_settings = SubResource("LabelSettings_wbjq6")
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
