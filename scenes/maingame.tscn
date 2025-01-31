@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://c8e5tn2orgq4w"]
+[gd_scene load_steps=18 format=3 uid="uid://c8e5tn2orgq4w"]
 
 [ext_resource type="Script" path="res://scripts/worl_creator.gd" id="1_djhrm"]
+[ext_resource type="PackedScene" uid="uid://b2i1xauufa1n1" path="res://scenes/entities/enemy1.tscn" id="1_rtmjw"]
 [ext_resource type="Script" path="res://scripts/camera_3d.gd" id="1_yc3xv"]
 [ext_resource type="PackedScene" uid="uid://buuufkt5bownb" path="res://scenes/player.tscn" id="3_kgo72"]
 
@@ -135,7 +136,10 @@ surface_material_override/0 = SubResource("StandardMaterial3D_77ayx")
 
 [node name="e1" type="Node3D" parent="MapObjectsSource"]
 
+[node name="Enemy1" parent="MapObjectsSource/e1" instance=ExtResource("1_rtmjw")]
+
 [node name="Mesh" type="MeshInstance3D" parent="MapObjectsSource/e1"]
+visible = false
 mesh = SubResource("CapsuleMesh_lusws")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_77ayx")
@@ -191,35 +195,17 @@ mesh = SubResource("BoxMesh_7sk04")
 skeleton = NodePath("../MapObjectsSource/lend")
 surface_material_override/0 = SubResource("StandardMaterial3D_77ayx")
 
-[node name="UI" type="SubViewportContainer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
 anchors_preset = -1
-anchor_right = 0.191
-anchor_bottom = 0.511
-offset_right = 1035.52
-offset_bottom = 352.08
-stretch = true
-stretch_shrink = 1511
-
-[node name="Label" type="Label" parent="UI"]
-layout_mode = 2
-text = "ewgewrwgr"
-
-[node name="SubViewport" type="SubViewport" parent="UI"]
-handle_input_locally = false
-size = Vector2i(2, 2)
-render_target_update_mode = 4
-
-[node name="Control" type="Control" parent="UI/SubViewport"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="ColorRect" type="ColorRect" parent="UI/SubViewport/Control"]
-visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1029.0
+offset_top = 648.0
+offset_right = -45.0
+offset_bottom = -22.0
+text = "gregre"
 
 [connection signal="body_entered" from="MapObjectsSource/lend/Area3D" to="MapObjectsSource/lend/Area3D/CollisionShape3D" method="_on_area_3d_body_entered"]
 [connection signal="woah" from="MapObjectsSource/lend/Area3D/CollisionShape3D" to="Genny" method="_on_collision_shape_3d_woah"]

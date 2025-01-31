@@ -1,8 +1,8 @@
 #SM stands for State machine
 extends Node3D
 enum {
-	IDLE,
-	ALERT,
+    IDLE,
+    ALERT,
 }
 
 var state = IDLE
@@ -10,12 +10,12 @@ var state = IDLE
 @onready var raycast = $RayCast3D 
 
 func _ready():
-	pass
+    pass
 
 func _process(delta):
-		
-	match state:
-		IDLE:
-			pass
-		ALERT:
-			pass
+        
+    match state:
+        IDLE:
+            pass
+        ALERT:
+            pass

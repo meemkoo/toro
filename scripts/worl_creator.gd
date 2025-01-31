@@ -6,6 +6,11 @@ var mo = $"../MapObjects"
 var mos = $"../MapObjectsSource"
 @onready
 var player_main = $"../Player"
+@onready
+var eeeeeeeeeeee = $"../CanvasLayer/Label"
+
+@onready
+var escene = preload("res://scenes/menu.tscn").instantiate()
 
 var levels = {}
 
@@ -118,7 +123,11 @@ func load_map(img: Image, sources: Node3D, player: Node3D) -> Node3D:
     for x in range(img.get_width()):
         for y in range(img.get_height()):
             var cell = arrayonce[x][y]
-            var nut = get_node("{0}/{1}".format([sources.get_path(), cell[1]])).duplicate()
+            var nut = null;
+            if cell[2] == 4:
+                nut = get_node("{0}/{1}".format([sources.get_path(), "lend"])).duplicate()
+            else:
+                nut = get_node("{0}/{1}".format([sources.get_path(), cell[1]])).duplicate()
             nut.transform.origin = Vector3(MSF*x, 0, MSF*y)
             levelroot.add_child(nut)
             
@@ -216,16 +225,28 @@ func _ready() -> void:
     this game =/= doom. So i rebute with PS (like piss) is an old head and fuck this"
 
     mo.add_child(load_map(load(levels[lidx][fidx][0]).get_image(), mos, player_main))
+    eeeeeeeeeeee.text = "LEvel: %d, Floor: %d" % [lidx, fidx]
     pass
 
 
 func _on_collision_shape_3d_woah() -> void:
+    if lidx == 10:
+        get_parent().get_parent().add_child(escene)
+        get_parent().hide()
+        
     for i in mo.get_children():
         mo.remove_child(i)
-    if fidx+1 == len(levels[lidx]):
-        lidx += 1
-        fidx = 0
-        # Do next level screen
+    # if p == "lend":
+    if lidx == 7:
+        lidx += 2
     else:
-        fidx += 1
-    mo.add_child(load_map(load(levels[lidx][fidx][0]).get_image(), mos, player_main))
+        lidx += 1
+
+    #if fidx+1 == len(levels[lidx]):
+        #lidx += 1
+        #fidx = 0
+        ## Do next level screen
+    #else:
+        #fidx += 1
+    mo.add_child(load_map(load(levels[lidx][0][0]).get_image(), mos, player_main))
+    eeeeeeeeeeee.text = "LEvel: %d, Floor: %d" % [lidx, fidx]
