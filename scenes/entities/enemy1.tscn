@@ -1,13 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://b2i1xauufa1n1"]
+[gd_scene load_steps=14 format=3 uid="uid://b2i1xauufa1n1"]
 
 [ext_resource type="Script" path="res://scenes/entities/enemy_1.gd" id="1_0ch8b"]
 [ext_resource type="Script" path="res://scenes/entities/EnemySM.gd" id="1_8843u"]
 [ext_resource type="PackedScene" uid="uid://gel44tyx3eqy" path="res://Prefabs/blood.tscn" id="2_3gf03"]
 [ext_resource type="PackedScene" uid="uid://dclo1iio3o7u2" path="res://Models/bullfighter.glb" id="2_nxcb1"]
 [ext_resource type="Material" uid="uid://cmtwpybfmi5tj" path="res://Textures/new_particle_process_material.tres" id="4_f8ef6"]
-[ext_resource type="AudioStream" uid="uid://bp3n4affp2j8k" path="res://Audio/BOM(Alert2).wav" id="5_w3msg"]
-[ext_resource type="AudioStream" uid="uid://dyatadasmp48h" path="res://Audio/ISTB(Alert1).wav" id="6_yaumw"]
-[ext_resource type="AudioStream" uid="uid://dq5yhi0e3jdqd" path="res://Audio/TAB(Alert3).wav" id="7_tucip"]
 [ext_resource type="AudioStream" uid="uid://d254ghcabg52m" path="res://Audio/gunshot 2.wav" id="8_8n518"]
 [ext_resource type="AudioStream" uid="uid://c25ey784x22b" path="res://Audio/hit.wav" id="10_r606p"]
 
@@ -80,20 +77,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.728594, -0.0336857)
 lifetime = 0.34
 process_material = SubResource("ParticleProcessMaterial_0xfw0")
 
-[node name="Bom(alert2)" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_w3msg")
-
-[node name="Istb(alert1)" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_yaumw")
-
-[node name="Tab(alert3)" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_tucip")
-
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("8_8n518")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_r606p")
+
+[node name="alert" type="AudioStreamPlayer3D" parent="."]
+
+[node name="alert2" type="AudioStreamPlayer3D" parent="."]
+
+[node name="alert3" type="AudioStreamPlayer3D" parent="."]
 
 [connection signal="body_entered" from="CharacterBody3D/Sightrange" to="." method="_on_sightrange_body_entered"]
 [connection signal="body_exited" from="CharacterBody3D/Sightrange" to="." method="_on_sightrange_body_exited"]

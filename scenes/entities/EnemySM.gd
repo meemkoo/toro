@@ -9,9 +9,6 @@ enum {
 var state = IDLE
 
 @onready var raycast = $CharacterBody3D/RayCast3D
-@onready var alert1 = $"Istb(alert1)"
-@onready var alert2 = $"Bom(alert2)"
-@onready var alert3 = $"Tab(alert3)"
 @onready var eyes = $CharacterBody3D/eyes
 @onready var rng = RandomNumberGenerator.new()
 @onready var shoottimer = $CharacterBody3D/ShootTimer
@@ -34,13 +31,16 @@ func _process(delta):
 		ALERT:
 			eyes.look_at(target.global_transform.origin, Vector3.UP)
 			rotate_y(deg_to_rad(eyes.rotation.y * TURN_SPEED))
-			#var my_random_number = rng.randf_range(1, 3)
-			#var units = [ 
-			#	alert1.play(),
-			#	alert2.play(),
-			#	alert3.play(),
-			#]
-			#rng = units.pick_random()
+			
+			var my_random_number = rng.randf_range(1, 3)
+			var units
+			[ 
+				$alert.play(),
+				$alert2.play(),
+				$alert3.play(),
+			]
+			return
+			units.pick_random()
 
 
 func _on_sightrange_body_entered(body: Node3D) -> void:
