@@ -6,8 +6,16 @@ var mo = $"../MapObjects"
 var mos = $"../MapObjectsSource"
 @onready
 var player_main = $"../Player"
+@onready
+var eeeeeeeeeeee = $"../CanvasLayer/Label"
+
+@onready
+var escene = preload("res://scenes/menu.tscn").instantiate()
 
 var levels = {}
+
+var lidx = 0;
+var fidx = 0;
 
 const MAPSCALEFACTOR = 4
 const MSF = MAPSCALEFACTOR
@@ -71,100 +79,110 @@ func getadj(arr, x, y):
 
 
 func load_map(img: Image, sources: Node3D, player: Node3D) -> Node3D:
-	var levelroot = Node3D.new()
-	
-	var arrayonce = []
-	for i in range(img.get_width()):
-		var cwbb = []
-		for j in range(img.get_height()):
-			var t = null
-			match img.get_pixel(i, j):
-				Color("000000"):
-					t = ["Wall", "wall", 11, false] # Name, computer name, id, walltype
-				Color("ffffff"):
-					t = ["Air", "air", 1, false]
-				Color("00ff12"):
-					t = ["Level end", "lend", 2, false]
-				Color("0400ff"):
-					t = ["Level start", "lstart", 3, false]
-				Color("15293a"):
-					t = ["Staircase", "stairs", 4, false]
-				Color("848484"):
-					t = ["Breakable wall", "xwall", 5, true]
-				Color("ff0000"):
-					t = ["Stage 1 enemy", "e1", 6, false]
-				Color("ffe800"):
-					t = ["Stage 2 enemy", "e2", 7, false]
-				Color("46c9f7"):
-					t = ["Stage 3 enemy", "e3", 8, false]
-				Color("9800ff"):
-					t = ["Sniper", "sniper", 9, false]
-				Color("ff6d00"):
-					t = ["Pit", "pit", 10, false]
-				Color("3f3f3f"):
-					t = ["Locked Door", "ldoor", 12, false]
-				_:
-					t = ["Wall", "wall", 11, false]
-			cwbb.append(t)
-		arrayonce.append(cwbb)
+    var levelroot = Node3D.new()
+    
+    var arrayonce = []
+    for i in range(img.get_width()):
+        var cwbb = []
+        for j in range(img.get_height()):
+            var t = null
+            match img.get_pixel(i, j):
+                Color("000000"):
+                    t = ["Wall", "wall", 11, false] # Name, computer name, id, walltype
+                Color("ffffff"):
+                    t = ["Air", "air", 1, false]
+                Color("00ff12"):
+                    t = ["Level end", "lend", 2, false]
+                Color("0400ff"):
+                    t = ["Level start", "lstart", 3, false]
+                Color("15293a"):
+                    t = ["Staircase", "stairs", 4, false]
+                Color("848484"):
+                    t = ["Breakable wall", "xwall", 5, true]
+                Color("ff0000"):
+                    t = ["Stage 1 enemy", "e1", 6, false]
+                Color("ffe800"):
+                    t = ["Stage 2 enemy", "e2", 7, false]
+                Color("46c9f7"):
+                    t = ["Stage 3 enemy", "e3", 8, false]
+                Color("9800ff"):
+                    t = ["Sniper", "sniper", 9, false]
+                Color("ff6d00"):
+                    t = ["Pit", "pit", 10, false]
+                Color("3f3f3f"):
+                    t = ["Locked Door", "ldoor", 12, false]
+                _:
+                    t = ["Wall", "wall", 11, false]
+            cwbb.append(t)
+        arrayonce.append(cwbb)
 
-	var wallmat = load("res://Textures/wallmat.tres")
-	#wallmat.vertex_color_use_as_albedo = true # will need this for the array of colors
-	
-	
-	
-	for x in range(img.get_width()):
-		for y in range(img.get_height()):
-			var cell = arrayonce[x][y]
-			var nut = get_node("{0}/{1}".format([sources.get_path(), cell[1]])).duplicate()
-			nut.transform.origin = Vector3(MSF*x, 0, MSF*y)
-			levelroot.add_child(nut)
-			
-			if cell[2] >= 6 and cell[2] <= 8:
-				pass
-			if cell[2] == 3:
-				player.transform.origin = nut.transform.origin + Vector3(0.5, 0.5, 0.5)*MSF
-			if cell[2] not in [11]:
-				nut.transform.origin += Vector3(0.5, 0.5, 0.5)*MSF
-			if cell[2] in [11]:
-				var test11 = getadj(arrayonce, x, y)
-				var bvert = []
-				if test11['N']:
-					if test11['N'][2] != 11:
-						bvert += vertices.slice(0, 6)
-				if test11['E']:
-					if test11['E'][2] != 11:
-						bvert += vertices.slice(18, 24)
-				if test11['S']:
-					if test11['S'][2] != 11:
-						bvert += vertices.slice(6, 12)
-				if test11['W']:
-					if test11['W'][2] != 11:
-						bvert += vertices.slice(12, 18)
+    var wallmat = StandardMaterial3D.new()
+    wallmat.vertex_color_use_as_albedo = true # will need this for the array of colors
+    
+    
+    for x in range(img.get_width()):
+        for y in range(img.get_height()):
+            var cell = arrayonce[x][y]
+            var nut = null;
+            if cell[2] == 4:
+                nut = get_node("{0}/{1}".format([sources.get_path(), "lend"])).duplicate()
+            else:
+                nut = get_node("{0}/{1}".format([sources.get_path(), cell[1]])).duplicate()
+            nut.transform.origin = Vector3(MSF*x, 0, MSF*y)
+            levelroot.add_child(nut)
+            
+            if cell[2] != 10:
+                var boxbox = CSGBox3D.new()
+                boxbox.transform.origin = Vector3(MSF*x, -2, MSF*y)
+                boxbox.transform = boxbox.transform.scaled_local(Vector3(4,4,4))
+                boxbox.use_collision = true
+                levelroot.add_child(boxbox)
+            if cell[2] >= 6 and cell[2] <= 8:
+                pass
+            if cell[2] == 3:
+                player.transform.origin = nut.transform.origin + Vector3(0.5, 0.5, 0.5)*MSF
+            if cell[2] not in [11]:
+                nut.transform.origin += Vector3(0.5, 0.5, 0.5)*MSF
+            if cell[2] in [11]:
+                var test11 = getadj(arrayonce, x, y)
+                var bvert = []
+                if test11['N']:
+                    if test11['N'][2] != 11:
+                        bvert += vertices.slice(0, 6)
+                if test11['E']:
+                    if test11['E'][2] != 11:
+                        bvert += vertices.slice(18, 24)
+                if test11['S']:
+                    if test11['S'][2] != 11:
+                        bvert += vertices.slice(6, 12)
+                if test11['W']:
+                    if test11['W'][2] != 11:
+                        bvert += vertices.slice(12, 18)
 
-				var arr_mesh = ArrayMesh.new()
-				var colors := []
-				for i2 in range(bvert.size()):
-					if cell[2] == 5:
-						wallmat = StandardMaterial3D.new()
-						colors.append(Color.GREEN_YELLOW)
-					else:
-						colors.append(Color.GREEN_YELLOW)
-	
-				var arrays := []
-				arrays.resize(Mesh.ARRAY_MAX)
-				arrays[Mesh.ARRAY_VERTEX] = PackedVector3Array(bvert)
-				arrays[Mesh.ARRAY_COLOR] = PackedColorArray(colors)
-				arr_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
-				#mesh.surface_set_material(0, wallmat)   # will need uvs if using a texture
-				#wallmat.vertex_color_use_as_albedo = true
-				arr_mesh.surface_set_material(0, wallmat)
-				nut.get_child(0).mesh = arr_mesh
-				
-				nut.get_child(1).position += Vector3(0.5, 0.5, 0.5)*MSF
-	
-	
-	return levelroot
+                var arr_mesh = ArrayMesh.new()
+                var colors := []
+                for i2 in range(bvert.size()):
+                    if cell[2] == 5:
+                        wallmat = StandardMaterial3D.new()
+                        colors.append(Color.GREEN_YELLOW)
+                    else:
+                        colors.append(Color.GREEN_YELLOW)
+
+                var arrays := []
+                arrays.resize(Mesh.ARRAY_MAX)
+                arrays[Mesh.ARRAY_VERTEX] = PackedVector3Array(bvert)
+                arrays[Mesh.ARRAY_COLOR] = PackedColorArray(colors)
+                arr_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+                # mesh.surface_set_material(0, your_material)   # will need uvs if using a texture
+                wallmat.vertex_color_use_as_albedo = true
+                arr_mesh.surface_set_material(0, wallmat)
+                nut.get_child(0).mesh = arr_mesh
+                
+                nut.get_child(1).position += Vector3(0.5, 0.5, 0.5)*MSF
+    
+    
+    return levelroot
+
 
 
 func get_all_file_paths(path: String) -> Array[String]:  
@@ -185,41 +203,51 @@ func load_layer():
 	pass
 
 func _ready() -> void:
-	#var file_paths: Array[String] = []  
-	#var dir = DirAccess.open("res://maps")  
-	#dir.list_dir_begin()  
-	#var file_name = dir.get_next()  
-	#while file_name:
-		#
-		#var dir1 = DirAccess.open("res://maps")
-		#dir1.list_dir_begin()  
-		#var file_name1 = dir1.get_next()  
-		#while file_name1:
-			#print(file_name + '__' + file_name1)
-			#file_name1 = dir1.get_next()
-		#print(file_name)
-		#file_name = dir.get_next()
-	var e = get_all_file_paths("res://maps")
-	
-	for j in e:
-		var cockywant = j.split("//")[-1].split("/").slice(1)
-		if cockywant[-1].split('.')[-1] == 'import':
-			continue
-		
-		if int(cockywant[0].split('_')[-1]) in levels:
-			levels[int(cockywant[0].split('_')[-1])].append([j, cockywant])
-		else:
-			levels[int(cockywant[0].split('_')[-1])] = [[j, cockywant]]
-	
-	for ll in levels:
-		var e11 = levels[ll]
-		for jj in e11:
-			jj.append(load_map(load(jj[0]).get_image(), mos, player_main))
-	
-	"Pirate software is a fucking old head so he probably played doom? Counterstrike my `friend` said yay up down looking, this game =/= doom. So i rebute with PS (like piss) is an old head and fuck this"
-	#for i in get_all_file_paths("res://maps"):
-		#if i.split('.')[-1] == 'png':
-			#levels.append(load_map(load(i).get_image(), mos, player_main))
+    var e = get_all_file_paths("res://maps")
+    
+    for j in e:
+        var cockywant = j.split("//")[-1].split("/").slice(1)
+        if cockywant[-1].split('.')[-1] == 'import':
+            continue
+        
+        if int(cockywant[0].split('_')[-1]) in levels:
+            levels[int(cockywant[0].split('_')[-1])].append([j, cockywant])
+        else:
+            levels[int(cockywant[0].split('_')[-1])] = [[j, cockywant]]
+    
+    for ll in levels:
+        var e11 = levels[ll]
+        for jj in e11:
+            jj.append(load_map(load(jj[0]).get_image(), mos, player_main))
 
-	mo.add_child(load_map(load(levels[0][0][0]).get_image(), mos, player_main))
-	pass
+    "Pirate software is a 
+    fucking old head so he probably played doom? 
+    Counterstrike my `friend` said yay up down looking, 
+    this game =/= doom. So i rebute with PS (like piss) is an old head and fuck this"
+
+    mo.add_child(load_map(load(levels[lidx][fidx][0]).get_image(), mos, player_main))
+    eeeeeeeeeeee.text = "LEvel: %d, Floor: %d" % [lidx, fidx]
+    pass
+
+
+func _on_collision_shape_3d_woah() -> void:
+    if lidx == 10:
+        get_parent().get_parent().add_child(escene)
+        get_parent().hide()
+        
+    for i in mo.get_children():
+        mo.remove_child(i)
+    # if p == "lend":
+    if lidx == 7:
+        lidx += 2
+    else:
+        lidx += 1
+
+    #if fidx+1 == len(levels[lidx]):
+        #lidx += 1
+        #fidx = 0
+        ## Do next level screen
+    #else:
+        #fidx += 1
+    mo.add_child(load_map(load(levels[lidx][0][0]).get_image(), mos, player_main))
+    eeeeeeeeeeee.text = "LEvel: %d, Floor: %d" % [lidx, fidx]

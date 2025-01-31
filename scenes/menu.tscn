@@ -1,0 +1,118 @@
+[gd_scene load_steps=6 format=3 uid="uid://clkw6wrxp0x3i"]
+
+[ext_resource type="Texture2D" uid="uid://b0gqv5unce5ni" path="res://Textures/bullfighter.png" id="1_2xyao"]
+[ext_resource type="FontFile" uid="uid://ilwubkat1bkn" path="res://Textures/Circus-gwK5.ttf" id="2_35dyj"]
+[ext_resource type="Texture2D" uid="uid://0ga5s0jyonuf" path="res://Textures/start.png" id="2_mq4sr"]
+[ext_resource type="Texture2D" uid="uid://t6ekh8rfg4r5" path="res://Textures/start2.png" id="3_8usun"]
+
+[sub_resource type="GDScript" id="GDScript_piiau"]
+resource_name = "startgame"
+script/source = "extends TextureButton
+
+var mainscene = preload(\"res://scenes/maingame.tscn\").instantiate()
+@onready var m: Control = $\"../Label\"
+@onready var w: Control = $\"../TextureRect\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+    pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+    pass
+
+
+func _on_pressed() -> void:
+    m.show()
+    w.hide()
+    get_parent().get_parent().add_child(mainscene)
+    get_parent().hide()
+"
+
+[node name="Node" type="Node"]
+
+[node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect2" type="TextureRect" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.639
+anchor_bottom = 0.36
+offset_top = 443.0
+offset_right = 462.08
+offset_bottom = 460.8
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_2xyao")
+expand_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.639
+anchor_bottom = 0.36
+offset_right = 462.08
+offset_bottom = 460.8
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_2xyao")
+expand_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 499.0
+offset_top = 346.0
+offset_right = -551.0
+offset_bottom = -194.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("2_mq4sr")
+texture_hover = ExtResource("3_8usun")
+ignore_texture_size = true
+stretch_mode = 4
+script = SubResource("GDScript_piiau")
+
+[node name="Button" type="Button" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.625
+anchor_bottom = 0.68
+offset_left = 1042.0
+offset_top = 33.0
+offset_right = 449.0
+offset_bottom = -411.6
+theme_override_colors/font_color = Color(0.966784, 0.523635, 0.214242, 1)
+theme_override_fonts/font = ExtResource("2_35dyj")
+theme_override_font_sizes/font_size = 36
+text = "CREDITS"
+
+[node name="Label" type="Label" parent="Menu"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.295
+anchor_bottom = 0.335
+offset_left = 246.0
+offset_top = -78.0
+offset_right = 636.4
+offset_bottom = 762.8
+theme_override_fonts/font = ExtResource("2_35dyj")
+theme_override_font_sizes/font_size = 151
+text = "LOADING
+LOADING
+LOADING
+LOADING
+LOADING
+LOADING
+LOADING"
+
+[connection signal="pressed" from="Menu/TextureButton" to="Menu/TextureButton" method="_on_pressed"]

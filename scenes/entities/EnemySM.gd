@@ -2,8 +2,8 @@
 extends Node3D
 
 enum {
-	IDLE,
-	ALERT,
+    IDLE,
+    ALERT,
 }
 
 var state = IDLE
@@ -19,7 +19,7 @@ var target
 const TURN_SPEED = 2
 
 func _ready():
-	pass
+    pass
 
 func _process(delta):
 	if Global.gamestart == 0:
