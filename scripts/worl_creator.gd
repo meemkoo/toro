@@ -6,8 +6,16 @@ var mo = $"../MapObjects"
 var mos = $"../MapObjectsSource"
 @onready
 var player_main = $"../Player"
+@onready
+var eeeeeeeeeeee = $"../CanvasLayer/Label"
+
+@onready
+var escene = preload("res://scenes/menu.tscn").instantiate()
 
 var levels = {}
+
+var lidx = 0;
+var fidx = 0;
 
 const MAPSCALEFACTOR = 4
 const MSF = MAPSCALEFACTOR
@@ -115,10 +123,20 @@ func load_map(img: Image, sources: Node3D, player: Node3D) -> Node3D:
     for x in range(img.get_width()):
         for y in range(img.get_height()):
             var cell = arrayonce[x][y]
-            var nut = get_node("{0}/{1}".format([sources.get_path(), cell[1]])).duplicate()
+            var nut = null;
+            if cell[2] == 4:
+                nut = get_node("{0}/{1}".format([sources.get_path(), "lend"])).duplicate()
+            else:
+                nut = get_node("{0}/{1}".format([sources.get_path(), cell[1]])).duplicate()
             nut.transform.origin = Vector3(MSF*x, 0, MSF*y)
             levelroot.add_child(nut)
             
+            if cell[2] != 10:
+                var boxbox = CSGBox3D.new()
+                boxbox.transform.origin = Vector3(MSF*x, -2, MSF*y)
+                boxbox.transform = boxbox.transform.scaled_local(Vector3(4,4,4))
+                boxbox.use_collision = true
+                levelroot.add_child(boxbox)
             if cell[2] >= 6 and cell[2] <= 8:
                 pass
             if cell[2] == 3:
@@ -149,7 +167,7 @@ func load_map(img: Image, sources: Node3D, player: Node3D) -> Node3D:
                         colors.append(Color.GREEN_YELLOW)
                     else:
                         colors.append(Color.GREEN_YELLOW)
-    
+
                 var arrays := []
                 arrays.resize(Mesh.ARRAY_MAX)
                 arrays[Mesh.ARRAY_VERTEX] = PackedVector3Array(bvert)
@@ -184,20 +202,6 @@ func load_layer():
     pass
 
 func _ready() -> void:
-    #var file_paths: Array[String] = []  
-    #var dir = DirAccess.open("res://maps")  
-    #dir.list_dir_begin()  
-    #var file_name = dir.get_next()  
-    #while file_name:
-        #
-        #var dir1 = DirAccess.open("res://maps")
-        #dir1.list_dir_begin()  
-        #var file_name1 = dir1.get_next()  
-        #while file_name1:
-            #print(file_name + '__' + file_name1)
-            #file_name1 = dir1.get_next()
-        #print(file_name)
-        #file_name = dir.get_next()
     var e = get_all_file_paths("res://maps")
     
     for j in e:
@@ -214,11 +218,35 @@ func _ready() -> void:
         var e11 = levels[ll]
         for jj in e11:
             jj.append(load_map(load(jj[0]).get_image(), mos, player_main))
-    
-    "Pirate software is a fucking old head so he probably played doom? Counterstrike my `friend` said yay up down looking, this game =/= doom. So i rebute with PS (like piss) is an old head and fuck this"
-    #for i in get_all_file_paths("res://maps"):
-        #if i.split('.')[-1] == 'png':
-            #levels.append(load_map(load(i).get_image(), mos, player_main))
 
-    mo.add_child(load_map(load(levels[0][0][0]).get_image(), mos, player_main))
+    "Pirate software is a 
+    fucking old head so he probably played doom? 
+    Counterstrike my `friend` said yay up down looking, 
+    this game =/= doom. So i rebute with PS (like piss) is an old head and fuck this"
+
+    mo.add_child(load_map(load(levels[lidx][fidx][0]).get_image(), mos, player_main))
+    eeeeeeeeeeee.text = "LEvel: %d, Floor: %d" % [lidx, fidx]
     pass
+
+
+func _on_collision_shape_3d_woah() -> void:
+    if lidx == 10:
+        get_parent().get_parent().add_child(escene)
+        get_parent().hide()
+        
+    for i in mo.get_children():
+        mo.remove_child(i)
+    # if p == "lend":
+    if lidx == 7:
+        lidx += 2
+    else:
+        lidx += 1
+
+    #if fidx+1 == len(levels[lidx]):
+        #lidx += 1
+        #fidx = 0
+        ## Do next level screen
+    #else:
+        #fidx += 1
+    mo.add_child(load_map(load(levels[lidx][0][0]).get_image(), mos, player_main))
+    eeeeeeeeeeee.text = "LEvel: %d, Floor: %d" % [lidx, fidx]
